@@ -36,8 +36,13 @@ function Square(props){
     }
   
     render() {
-      const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-  
+      const winner = calculateWinner(this.state.squares)
+      let status
+      if(winner) {
+        status = 'Winner ' + winner
+      } else {
+        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+      }
       return (
         <div>
           <div className="status">{status}</div>
@@ -89,8 +94,12 @@ function Square(props){
       [2, 4, 6],
     ]
     for (let i = 0; i < lines.length; i++) {
-      
+      const [a,b,c] = lines[i]
+      if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+        return squares[a]
+      }
     }
+    return null
   }
   
   // ========================================
